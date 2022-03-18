@@ -1,7 +1,6 @@
 import pandas as pd
+import os
 
-file_name = "API_ALB_DS2_en_excel_v2_3734132.xls"
-sheet = "Data"
-
-df = pd.read_excel(io=file_name, sheet_name=sheet, skiprows=3)
-print(df.head(10))
+for filename in os.listdir("data"):
+    df = pd.read_excel(io="data/"+filename, sheet_name="Data", skiprows=3)
+    print(df.head(10))
