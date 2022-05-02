@@ -32,7 +32,7 @@ TABLES['measurements'] = ("""CREATE TABLE `measurements` ( `country_code` varcha
                                                     CONSTRAINT `measurements_ibfk_3` FOREIGN KEY (`year`) REFERENCES `years` (`year`))
                                                     ENGINE=InnoDB""")
 
-cnx = mysql.connector.connect(user='root', password='password',
+cnx = mysql.connector.connect(user='root',
                               host='localhost')
 cursor = cnx.cursor()
 cursor.execute("DROP DATABASE IF EXISTS Chartify;")
