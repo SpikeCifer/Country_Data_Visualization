@@ -1,0 +1,23 @@
+package com.example.DataVisualizer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class MeasurementController {
+    @Autowired
+    private final MeasurementRepository repository;
+
+    public MeasurementController(MeasurementRepository repository) {
+        this.repository = repository;
+    }
+
+    @GetMapping("/measurements")
+    List<Measurement> listAll() {
+        return repository.findAll();
+    }
+}
