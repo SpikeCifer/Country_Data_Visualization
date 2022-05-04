@@ -1,2 +1,11 @@
-# Country_Data_Visualization
-This is the visualizing app we were tasked with developing during the elective course "Προχωρημένα Θέματα Τεχνολογίας και Εφαρμογών Βάσεων Δεδομένων" taught by professor Panos Vassiliadis
+# Data & Import Scripts
+
+This directory contains the python scripts used for loading country data into the MySQL Database
+
+Make sure to update:
+
+```
+cnx = mysql.connector.connect(user='root',
+                              host='localhost')
+```
+in load_files.py script with your configured authentication parameters
