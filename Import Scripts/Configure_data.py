@@ -31,18 +31,21 @@ xl__files = {
     'Samoa': 'Data/API_WSM_DS2_en_excel_v2_3733623.xlsx',
     'Zimbabwe': 'Data/API_ZWE_DS2_en_excel_v2_3757997.xlsx'
 }
+
 five_year_period = ['1960-1964', '1965-1969', '1970-1974', '1975-1979', '1980-1984', '1985-1989',
                     '1990-1994', '1995-1999', '2000-2004', '2005-2009', '2010-2014', '2015-2020']
 
-ten_year_period = ['1960-1969', '1970-1979',
-                   '1980-1989', '1990-1999', '2000-2009', '2010-2020']
+ten_year_period = ['1960-1969', '1970-1979', '1980-1989', '1990-1999', '2000-2009', '2010-2020']
 
 twenty_year_period = ['1960-1979', '1980-1999', '2000-2020']
 
 row = 1
 
-# Data config function definitions
+VALID_INDICATORS = {'SP.DYN.LE00.MA.IN', 'TX.VAL.MRCH.WL.CD', 'SP.POP.2024.FE.5Y', 'SP.DYN.TO65.MA.ZS',
+                    'NY.GSR.NFCY.CD', 'EN.ATM.CO2E.SF.ZS', 'EG.ELC.FOSL.ZS', 'MS.MIL.XPND.CD',
+                    'NV.MNF.FBTO.ZS.UN', 'EN.URB.LCTY.UR.ZS', 'BX.GSR.GNFS.CD', 'BM.GSR.GNFS.CD'}
 
+# Data config function definitions
 
 def create_measurements_xl_file():
     global row
@@ -60,19 +63,14 @@ def create_measurements_xl_file():
         wb1 = xl.load_workbook(xl__files[country])
         ws1 = wb1.worksheets[0]
 
-        # calculate total number of rows and columns in source excel file
-        max_rows = ws1.max_row
+        max_rows = ws1.max_row  # Get total number of rows and columns in source excel file
 
         for rows in range(5, max_rows + 1):
             # reading cell value from source excel file
             c1 = ws1.cell(row=rows, column=2)
             c2 = ws1.cell(row=rows, column=4)
-            if c2.value == 'SP.DYN.LE00.MA.IN' or c2.value == 'TX.VAL.MRCH.WL.CD' or \
-                    c2.value == 'SP.POP.2024.FE.5Y' or c2.value == 'SP.DYN.TO65.MA.ZS' or \
-                    c2.value == 'NY.GSR.NFCY.CD' or c2.value == 'EN.ATM.CO2E.SF.ZS' or \
-                    c2.value == 'EG.ELC.FOSL.ZS' or c2.value == 'MS.MIL.XPND.CD' or \
-                    c2.value == 'NV.MNF.FBTO.ZS.UN' or c2.value == 'EN.URB.LCTY.UR.ZS' or \
-                    c2.value == 'BX.GSR.GNFS.CD' or c2.value == 'BM.GSR.GNFS.CD':
+
+            if c2.value in VALID_INDICATORS:
                 for columns in range(5, 65):
                     # writing the read value to destination excel file
                     ws2.cell(row, 1).value = c1.value
@@ -162,15 +160,16 @@ def create_countries_xl_file():
 
 
 def create_years_xl_file():
-
     global five_year_period, ten_year_period, twenty_year_period
 
     wb1 = xl.load_workbook('Data/API_ALB_DS2_en_excel_v2_3734132.xlsx')
     ws1 = wb1.worksheets[0]
+    
     # creating xlsx file
     filepath = "Exported_data/years.xlsx"
     wb = xl.Workbook()
     wb.save(filepath)
+   
     # opening the destination excel file
     output_xl_file = 'Exported_data/years.xlsx'
     wb2 = xl.load_workbook(output_xl_file)
@@ -182,7 +181,10 @@ def create_years_xl_file():
         c1 = ws1.cell(4, columns)
         ws2.cell(row_number, 1).value = c1.value
         row_number += 1
+    
     row_number = 1
+
+    # Group By 5 Years
     for year in range(0, 12):
         if year==11:
             for i in range(1, 7):
@@ -193,6 +195,8 @@ def create_years_xl_file():
                 ws2.cell(row_number, 2).value = five_year_period[year]
                 row_number += 1
     row_number = 1
+    
+    # Group By 10 Years
     for year in range(0, 6):
         if year == 5:
             for i in range(1, 12):
@@ -203,6 +207,8 @@ def create_years_xl_file():
                 ws2.cell(row_number, 3).value = ten_year_period[year]
                 row_number += 1
     row_number = 1
+    
+    # Group By 20 Years
     for year in range(0, 3):
         if year == 2:
             for i in range(1, 22):
@@ -233,15 +239,18 @@ def convert_to_csv(filename):
 
 # Driver program
 def main():
-
     create_years_xl_file()
     print("Created years.xlsx file. ")
+
     create_measurements_xl_file()
     print("Created measurements.xlsx file. ")
+
     create_countries_xl_file()
     print("Created countries.xlsx file. ")
+
     create_indicators_xl_file()
     print("Created indicators.xlsx file. ")
+
     convert_to_csv('countries')
     convert_to_csv('indicators')
     convert_to_csv('measurements')

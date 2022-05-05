@@ -1,18 +1,19 @@
 package com.example.DataVisualizer;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class MeasurementId implements Serializable {
-    private String countryCode;
-    private String indicatorCode;
+    private String country;
+    private String indicator;
     private int year;
 
-    public MeasurementId() {}
-
-    public MeasurementId(String countryCode, String indicatorCode, int year) {
-        this.countryCode = countryCode;
-        this.indicatorCode = indicatorCode;
+    protected MeasurementId() {}
+    public MeasurementId(String country, String indicator, int year) {
+        this.country = country;
+        this.indicator = indicator;
         this.year = year;
     }
 
@@ -21,11 +22,12 @@ public class MeasurementId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MeasurementId that = (MeasurementId) o;
-        return year == that.year && Objects.equals(countryCode, that.countryCode) && Objects.equals(indicatorCode, that.indicatorCode);
+        return year == that.year && Objects.equals(country, that.country) &&
+                Objects.equals(indicator, that.indicator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(countryCode, indicatorCode, year);
+        return Objects.hash(country, indicator, year);
     }
 }

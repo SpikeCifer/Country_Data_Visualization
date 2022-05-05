@@ -1,6 +1,11 @@
 package com.example.DataVisualizer;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface MeasurementRepository extends JpaRepository<Measurement, MeasurementId> {
+import java.util.List;
+
+public interface MeasurementRepository extends CrudRepository<Measurement, MeasurementId> {
+    List<Measurement> findByCountryInAndIndicator(List<String> countryCodes, String indicatorCode);
+
+    List<Measurement> findByCountryInAndIndicatorIn(List<String> countryCodes, List<String> indicatorCodes);
 }
