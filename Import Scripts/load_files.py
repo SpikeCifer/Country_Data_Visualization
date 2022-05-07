@@ -25,8 +25,8 @@ TABLES['indicator'] = (
     ENGINE=InnoDB"""
 )
 
-TABLES['year'] = (
-    """CREATE TABLE `year` (
+TABLES['time_period'] = (
+    """CREATE TABLE `time_period` (
         `year` int NOT NULL,
         `quinquennial` varchar(100) NOT NULL,
         `decade` varchar(100) NOT NULL,
@@ -47,7 +47,7 @@ TABLES['measurements'] = (
         KEY `year` (`year`),
         CONSTRAINT `measurements_ibfk_1` FOREIGN KEY (`country`) REFERENCES `country` (`code`),
         CONSTRAINT `measurements_ibfk_2` FOREIGN KEY (`indicator`) REFERENCES `indicator` (`code`),
-        CONSTRAINT `measurements_ibfk_3` FOREIGN KEY (`year`) REFERENCES `year` (`year`)
+        CONSTRAINT `measurements_ibfk_3` FOREIGN KEY (`year`) REFERENCES `time_period` (`year`)
     )
     ENGINE=InnoDB"""
 )
@@ -111,6 +111,6 @@ def load_file_into_table(filename: string, tablename: string):
 
 load_file_into_table(filename="countries.csv", tablename="country")
 load_file_into_table(filename="indicators.csv", tablename="indicator")
-load_file_into_table(filename="years.csv", tablename="year")
+load_file_into_table(filename="years.csv", tablename="time_period")
 load_file_into_table(filename="measurements.csv", tablename="measurement")
 cnx.close()
