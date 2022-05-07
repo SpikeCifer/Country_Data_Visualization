@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Country Data Visualizer</title>
+    <style>
+        h1 {text-align: center;}
+    </style>
+</head>
+<body>
+    <h1>Welcome to Country Data Visualizer</h1>
+    <img th:src="@{/images/logo.jpg}" th:width=200 th:height:200/>
+    <br/>
+    <div class = "grid">
+        <h3>We have data for the following Countries:</h3>
+        <div th:each="country : ${countries}">
+            <input name="countries" type="checkbox" th:value="${country.code}"/>
+            <span th:text="${country.name}">COUNTRY</span>
+        </div>
+        <h3>We have data about the following metrics:</h3>
+        <div th:each="indicator : ${indicators}">
+            <td><span th:text="${indicator.name}"> INDICATOR </span></td>
+        </div>
+        <select name="Start Year">
+            <option th:each="date : ${years}" th:text="${date.year}"></option>
+        </select></tr>
+    </div>
+</body>
+</html>
