@@ -10,5 +10,4 @@ uoi/DataVisualizer/resositories/CountryRepository.class
 uoi/DataVisualizer/resositories/TimePeriodRepository.class
 uoi/DataVisualizer/models/Country.class
 uoi/DataVisualizer/resositories/MeasurementRepository.class
-uoi/DataVisualizer/controllers/MeasurementController.class
 uoi/DataVisualizer/models/MeasurementId.class
