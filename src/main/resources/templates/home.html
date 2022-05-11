@@ -2,51 +2,89 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Country Data Visualizer</title>
-    <style>
-        h1 { text-align: center; }
-    </style>
-</head>
-<body>
-    <h1>Welcome to Country Data Visualizer</h1>
+    <head>
+        <meta charset="UTF-8">
+        <title>Country Data Visualizer</title>
 
-    <form method="POST" th:object="${submitted}">
-        <div class = "grid">
-            <h3>Select up to 3 Indicators:</h3>
-            <label for="indicatorA">Choose indicator 1</label>
-            <select name="indicators" id="indicatorA">
-                <option value="default" selected>None</option>
-                <option th:each="indicator : ${indicators}" th:text="${indicator.name}"></option>
-            </select>
-            <br/>
-            <label for="indicatorB">Choose indicator 2</label>
-            <select name="indicators" id="indicatorB">
-                <option value="default" selected>None</option>
-                <option th:each="indicator : ${indicators}" th:text="${indicator.name}"></option>
-            </select>
-            <br/>
-            <label for="indicatorC">Choose indicator 3</label>
-            <select name="indicators" id="indicatorC">
-                <option value="default" selected>None</option>
-                <option th:each="indicator : ${indicators}" th:text="${indicator.name}"></option>
-            </select>
+        <style>
+            h1 {
+                text-align: center;
+            }
+        </style>
+    </head>
 
-            <h3>Select up to 5 from the following countries</h3>
-            <div th:each="country : ${countries}">
-                <input name="countries" type="checkbox" th:value="${country.code}"/>
-                <span th:text="${country.name}">COUNTRY</span>
+    <body>
+        <h1>Welcome to Country Data Visualizer</h1>
+
+        <form th:action="@{/visualize}" th:object="${submitted}" method="post">
+            <div class = "user-form">
+                <div class = "countries">
+                    <h2>Select up to 5 Countries</h2>
+                    <select name="countries" class="countries-list" id="country1">
+                        <option th:each="country : ${countries}" th:value="${country.code}"
+                                th:text="${country.name} + ' (default)'"></option>
+                    </select>
+
+                    <select name="countries" class="countries-list" id="country2">
+                        <option value = "None">None</option>
+                        <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}"></option>
+                    </select>
+
+                    <select name="countries" class="countries-list" id="country3">
+                        <option value = "None">None</option>
+                        <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}"></option>
+                    </select>
+
+                    <select name="countries" class="countries-list" id="country4">
+                        <option value = "None">None</option>
+                        <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}"></option>
+                    </select>
+
+                    <select name="countries" class="countries-list" id="country5">
+                        <option value = "None">None</option>
+                        <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}"></option>
+                    </select>
+                </div>
+
+                <div class="indicators">
+                    <h2>Select up to 3 Indicators</h2>
+                    <select name="indicators" class="indicators-list" id="indicator1">
+                        <option th:each="indicator : ${indicators}"
+                                th:value="${indicator.code}" th:text="${indicator.name} + ' (default)'">
+                        </option>
+
+                    </select><br/>
+                    <select name="indicators" class="indicators-list" id="indicator2">
+                        <option value = "None">None</option>
+                        <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}"></option>
+                    </select><br/>
+
+                    <select name="indicators" class="indicators-list" id="indicator3">
+                        <option value = "None">None</option>
+                        <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}"></option>
+                    </select><br/>
+                </div>
+
+                <div class = "time-period">
+                    <h2>Select Time Period</h2>
+                    <label for="start-year">Start at:</label>
+                    <select id="start-year" name="startYear" >
+                        <option th:each="date : ${years}" th:text="${date.year}"></option>
+                    </select>
+
+                    <label for="end-year">End at:</label>
+                    <select id="end-year" name="endYear">
+                        <option th:each="date : ${years}" th:text="${date.year}"></option>
+                    </select>
+                </div>
+
+
+                <button type="submit" value="timeline" name="visualType">Create Timeline</button>
+                <button type="submit" value="barChart" name="visualType">Create Bar Chart</button>
+                <button type="submit" value="scatterPlot" name="visualType">Create Scatter Plot</button>
+                <button type="reset" value="Reset">Reset</button>
             </div>
+        </form>
 
-            <select name="Start Year">
-                <option th:each="date : ${years}" th:text="${date.year}"></option>
-            </select></tr>
-
-            <select name="End Year">
-                <option th:each="date : ${years}" th:text="${date.year}"></option>
-            </select></tr>
-        </div>
-    </form>
-</body>
+    </body>
 </html>
