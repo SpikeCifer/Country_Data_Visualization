@@ -42,12 +42,12 @@ public class HomeController {
     }
 
     @PostMapping("/visualize")
-    public String processSubmittedForm(Request request) {
+    public String processSubmittedForm(Request request, Model model) {
         List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
                 request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
         );
-        for (Measurement m : measurements)
-            log.info(m.toString());
+        model.addAttribute("measurements", measurements);
+        model.addAttribute("chartType", request.getChartType());
         return "result";
     }
 }

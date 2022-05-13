@@ -10,5 +10,5 @@ public class Request {
     private List<String> indicators;
     private int startYear;
     private int endYear;
-    private String visualType;
+    private String chartType;
 }
