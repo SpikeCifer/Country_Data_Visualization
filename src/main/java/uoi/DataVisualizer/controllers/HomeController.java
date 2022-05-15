@@ -7,10 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import uoi.DataVisualizer.models.entities.Measurement;
+import uoi.DataVisualizer.models.requests.BarChartRequest;
+import uoi.DataVisualizer.models.requests.ScatterChartRequest;
+import uoi.DataVisualizer.models.requests.TimelineRequest;
 import uoi.DataVisualizer.resositories.CountryRepository;
 import uoi.DataVisualizer.resositories.IndicatorRepository;
 import uoi.DataVisualizer.resositories.MeasurementRepository;
 import uoi.DataVisualizer.resositories.TimePeriodRepository;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -36,17 +42,24 @@ public class HomeController {
         return "home";
     }
     @PostMapping("/timelineRequest")
-    public String processTimelineRequest(Model model) {
+    public String processTimelineRequest(TimelineRequest request, Model model) {
+        List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
+                request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
+        );
+        for (Measurement m: measurements)
+            log.info(m.toString());
         return "result";
     }
 
     @PostMapping("/barChartRequest")
-    public String processBarChartRequest(Model model) {
+    public String processBarChartRequest(BarChartRequest request, Model model) {
+        log.info(request.toString());
         return "result";
     }
 
     @PostMapping("/scatterChartRequest")
-    public String scatterChartRequest(Model model) {
+    public String scatterChartRequest(ScatterChartRequest request, Model model) {
+        log.info(request.toString());
         return "result";
     }
 }

@@ -1,9 +1,10 @@
 # Country Data Visualizer
 
 A Spring Boot Web App used for visualizing data collected from [The World Bank](https://data.worldbank.org/country).
+Application was developed using **Java 11**
 
 ## Technologies Used
-
+- Bootstrap
 - Thymeleaf
 - Spring
 - MySQL
