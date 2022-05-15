@@ -1,7 +1,7 @@
 package uoi.DataVisualizer.resositories;
 
 import org.springframework.data.repository.CrudRepository;
-import uoi.DataVisualizer.models.TimePeriod;
+import uoi.DataVisualizer.models.entities.TimePeriod;
 
 import java.util.List;
 

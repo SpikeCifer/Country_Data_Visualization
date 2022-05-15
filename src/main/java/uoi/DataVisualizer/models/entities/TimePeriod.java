@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.models;
+package uoi.DataVisualizer.models.entities;
 
 import lombok.AccessLevel;
 import lombok.Data;

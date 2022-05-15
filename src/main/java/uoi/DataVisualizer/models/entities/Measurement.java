@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.models;
+package uoi.DataVisualizer.models.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

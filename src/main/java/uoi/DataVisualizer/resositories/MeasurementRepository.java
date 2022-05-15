@@ -1,7 +1,7 @@
 package uoi.DataVisualizer.resositories;
 
-import uoi.DataVisualizer.models.MeasurementId;
-import uoi.DataVisualizer.models.Measurement;
+import uoi.DataVisualizer.models.entities.MeasurementId;
+import uoi.DataVisualizer.models.entities.Measurement;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

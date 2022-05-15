@@ -7,15 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import uoi.DataVisualizer.models.Measurement;
-import uoi.DataVisualizer.models.Request;
-
 import uoi.DataVisualizer.resositories.CountryRepository;
 import uoi.DataVisualizer.resositories.IndicatorRepository;
 import uoi.DataVisualizer.resositories.MeasurementRepository;
 import uoi.DataVisualizer.resositories.TimePeriodRepository;
-
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -40,14 +35,18 @@ public class HomeController {
         model.addAttribute("years", timeRepo.findAll());
         return "home";
     }
+    @PostMapping("/timelineRequest")
+    public String processTimelineRequest(Model model) {
+        return "result";
+    }
 
-    @PostMapping("/visualize")
-    public String processSubmittedForm(Request request, Model model) {
-        List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
-                request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
-        );
-        model.addAttribute("measurements", measurements);
-        model.addAttribute("chartType", request.getChartType());
+    @PostMapping("/barChartRequest")
+    public String processBarChartRequest(Model model) {
+        return "result";
+    }
+
+    @PostMapping("/scatterChartRequest")
+    public String scatterChartRequest(Model model) {
         return "result";
     }
 }
