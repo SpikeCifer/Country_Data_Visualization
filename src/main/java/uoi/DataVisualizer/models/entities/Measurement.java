@@ -52,4 +52,12 @@ public class Measurement implements Serializable {
     public double getMeasurement() {
         return measurement;
     }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 }

@@ -41,25 +41,30 @@ public class HomeController {
         model.addAttribute("years", timeRepo.findAll());
         return "home";
     }
+
     @PostMapping("/timelineRequest")
     public String processTimelineRequest(TimelineRequest request, Model model) {
+        // TODO: Add form Validation
         List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
                 request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
         );
-        for (Measurement m: measurements)
-            log.info(m.toString());
-        return "result";
+        for (Measurement m: measurements){
+            m.setCountry(countryRepo.findByCode(m.getCountry()).getName());
+            m.setIndicator(indicatorRepo.findByCode(m.getIndicator()).getName());
+        }
+        model.addAttribute("measurements", measurements);
+        return "timeline";
     }
 
     @PostMapping("/barChartRequest")
     public String processBarChartRequest(BarChartRequest request, Model model) {
-        log.info(request.toString());
-        return "result";
+        String option = request.getComparisonOption();
+        return "barChart";
     }
 
     @PostMapping("/scatterChartRequest")
     public String scatterChartRequest(ScatterChartRequest request, Model model) {
-        log.info(request.toString());
-        return "result";
+        String option = request.getComparisonOption();
+        return "scatterChart";
     }
 }
