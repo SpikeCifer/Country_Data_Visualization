@@ -4,12 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import uoi.DataVisualizer.models.entities.Measurement;
 import uoi.DataVisualizer.models.requests.BarChartRequest;
-import uoi.DataVisualizer.models.requests.Request;
 import uoi.DataVisualizer.models.requests.ScatterChartRequest;
 import uoi.DataVisualizer.models.requests.TimelineRequest;
 import uoi.DataVisualizer.resositories.CountryRepository;
@@ -17,6 +18,7 @@ import uoi.DataVisualizer.resositories.IndicatorRepository;
 import uoi.DataVisualizer.resositories.MeasurementRepository;
 import uoi.DataVisualizer.resositories.TimePeriodRepository;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -35,7 +37,7 @@ public class HomeController {
         this.measurementRepo = measurementRepo;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String showDataSelectionForm(Model model) {
         model.addAttribute("countries", countryRepo.findAll());
         model.addAttribute("indicators",indicatorRepo.findAll());
@@ -44,8 +46,11 @@ public class HomeController {
     }
 
     @PostMapping("/timelineRequest")
-    public String processTimelineRequest(TimelineRequest request, Model model) {
-        // TODO: Add form Validation
+    public String processTimelineRequest(@Valid TimelineRequest request, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            return "redirect:/";
+        }
+
         List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
                 request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
         );
@@ -55,8 +60,9 @@ public class HomeController {
     }
 
     @PostMapping("/barChartRequest")
-    public String processBarChartRequest(BarChartRequest request, Model model) {
-        // TODO: Add form Validation
+    public String processBarChartRequest(@Valid BarChartRequest request, Errors errors, Model model) {
+        if (errors.hasErrors())
+            return "redirect:/";
         List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
                 request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
         );
