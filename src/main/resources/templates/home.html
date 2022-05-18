@@ -20,6 +20,9 @@
     </style>
 </head>
     <body>
+         <div th:if="${error != null}" class="mt-4 text-center text-danger">
+          <span>[[${error}]]</span>
+        </div>
         <h1>Welcome to Country Data Visualizer (There for you since 1960)</h1>
         <h3>We have data about the following countries:</h3>
         <div id="countries-data">
