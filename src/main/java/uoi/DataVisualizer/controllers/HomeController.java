@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import uoi.DataVisualizer.models.entities.Measurement;
 import uoi.DataVisualizer.models.requests.BarChartRequest;
+import uoi.DataVisualizer.models.requests.Request;
 import uoi.DataVisualizer.models.requests.ScatterChartRequest;
 import uoi.DataVisualizer.models.requests.TimelineRequest;
 import uoi.DataVisualizer.resositories.CountryRepository;
@@ -48,23 +49,56 @@ public class HomeController {
         List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
                 request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
         );
-        for (Measurement m: measurements){
-            m.setCountry(countryRepo.findByCode(m.getCountry()).getName());
-            m.setIndicator(indicatorRepo.findByCode(m.getIndicator()).getName());
-        }
+        formatMeasurementsForChart(measurements);
         model.addAttribute("measurements", measurements);
         return "timeline";
     }
 
     @PostMapping("/barChartRequest")
     public String processBarChartRequest(BarChartRequest request, Model model) {
-        String option = request.getComparisonOption();
+        // TODO: Add form Validation
+        List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
+                request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
+        );
+        formatMeasurementsForChart(measurements);
+        model.addAttribute("measurements", measurements);
+        model.addAttribute("comparisonElements", request.getComparisonOption());
+        model.addAttribute("header", formatHeader(measurements.get(0), request.getComparisonOption()));
         return "barChart";
     }
 
     @PostMapping("/scatterChartRequest")
-    public String scatterChartRequest(ScatterChartRequest request, Model model) {
-        String option = request.getComparisonOption();
+    public String processScatterChartRequest(ScatterChartRequest request, Model model) {
+        // TODO: Add form Validation
+
+        List<Measurement> measurements;
+        measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqualOrderByYear(
+                request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
+        );
+        formatMeasurementsForChart(measurements);
+        model.addAttribute("header", "For Country: "+measurements.get(0).getCountry());
+        model.addAttribute("measurements", measurements);
+        model.addAttribute("metric1", indicatorRepo.findByCode(request.getMetric1()).getName());
+        model.addAttribute("metric2", indicatorRepo.findByCode(request.getMetric2()).getName());
         return "scatterChart";
+    }
+
+    /*
+    * Exchange Countries' and Indicators' codes with their names
+    */
+    private void formatMeasurementsForChart(List<Measurement> measurements) {
+        for (Measurement m: measurements) {
+            m.setCountry(countryRepo.findByCode(m.getCountry()).getName());
+            m.setIndicator(indicatorRepo.findByCode(m.getIndicator()).getName());
+        }
+    }
+
+    private String formatHeader(Measurement m, String base) {
+        String header = "Base was ";
+
+        if (base.equals("countries"))
+           return header + m.getIndicator();
+
+        return header + m.getCountry();
     }
 }

@@ -5,11 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class BarChartRequest {
+public class BarChartRequest extends Request{
     private String comparisonOption;
-    private List<String> countries;
-    private List<String> indicators;
-    private int startYear;
-    private int endYear;
-    private String timeLapse;
 }

@@ -1,5 +1,6 @@
 uoi/DataVisualizer/models/entities/Indicator.class
 uoi/DataVisualizer/resositories/IndicatorRepository.class
+uoi/DataVisualizer/models/requests/Request.class
 uoi/DataVisualizer/DataVisualizerApplication.class
 uoi/DataVisualizer/controllers/HomeController.class
 uoi/DataVisualizer/models/entities/MeasurementNotFoundException.class

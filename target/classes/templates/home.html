@@ -185,7 +185,7 @@
 
         <form method="POST" action="/scatterChartRequest">
             <div class="modal fade" id="scatterModal" tabindex="-1" role="dialog" aria-labelledby="modalScatterChartForm" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="scatterHeader">Fill up the Scatter Chart Form</h5>
@@ -193,47 +193,42 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-2">
-                                <select name="indicators" id="metricA">
+                                <select class="form-select" name="metric1" id="metricA">
                                     <option selected>Select Metric 1...</option>
                                     <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
                                 </select>
-                                <select name="indicators" id="metricB">
+                                <select class="form-select" name="metric2" id="metricB">
                                     <option selected>Select Metric 2...</option>
                                     <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
                                 </select>
                             </div>
-                            <input type="radio" name="comparisonOption" value="countries" id="scatterOnCountries" onclick="toggle(this.id)">
-                            <label for="scatterCountries">Scatter based on Countries</label>
-                            <div class="mb-2" id="scatterCountries">
-                                <div th:each="country : ${countries}" class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="countries" th:value="${country.code}" id="scatterCountryCheckbox">
-                                    <label class="form-check-label" for="country" th:text="${country.name}">
-                                        COUNTRY
-                                    </label>
-                                </div>
+                            <div class="row mb-3" id="scatterYears">
                                 <div class="col-md-4">
-                                    <select id="baseYear" class="form-select" name="startYear">
-                                        <option selected>Select Year...</option>
+                                    <select class="form-select" name="startYear">
+                                        <option selected>Start At...</option>
                                         <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <input type="radio" name="comparisonOption" value="years" id="scatterOnYears" onclick="toggle(this.id)">
-                            <label for="scatterYears">Scatter based on Years</label>
-                            <div id="scatterYears">
-                                <select class="form-select" name="startYear" id="scatterStartYear">
-                                    <option selected>Start at...</option>
-                                    <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
-                                </select>
-                                <select name="endYear" id="scatterEndYear">
-                                    <option selected>End at...</option>
-                                    <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
-                                </select>
-                                <select name="countries" id="scatterBaseCountry">
-                                    <option selected>Select base Country...</option>
-                                    <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">COUNTRY</option>
-                                </select>
+                                <div class="col-md-4">
+                                    <select class="form-select" name="endYear">
+                                        <option selected>End At...</option>
+                                        <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" name="timeLapse">
+                                        <option selected>Per...</option>
+                                        <option value="year">Year</option>
+                                        <option value="quinquennial">5 Years</option>
+                                        <option value="decade">10 Years</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" name="countries" id="scatterBaseCountry">
+                                        <option selected>Select base Country...</option>
+                                        <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">COUNTRY</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
