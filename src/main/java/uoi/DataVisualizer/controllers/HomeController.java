@@ -46,8 +46,9 @@ public class HomeController {
     }
 
     @PostMapping("/timelineRequest")
-    public String processTimelineRequest(@Valid TimelineRequest request, Errors errors, Model model) {
+    public String processTimelineRequest(@Valid TimelineRequest request, Errors errors, Model model, RedirectAttributes ra) {
         if (errors.hasErrors()) {
+            ra.addFlashAttribute("error", "Something went wrong");
             return "redirect:/";
         }
 
