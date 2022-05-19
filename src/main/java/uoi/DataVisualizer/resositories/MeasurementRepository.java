@@ -1,13 +1,15 @@
 package uoi.DataVisualizer.resositories;
 
-import uoi.DataVisualizer.models.MeasurementId;
-import uoi.DataVisualizer.models.Measurement;
+import uoi.DataVisualizer.models.entities.MeasurementId;
+import uoi.DataVisualizer.models.entities.Measurement;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
 public interface MeasurementRepository extends CrudRepository<Measurement, MeasurementId> {
-    List<Measurement> findByCountryInAndIndicator(List<String> countryCodes, String indicatorCode);
+    List<Measurement> findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqual(
+            List<String> countryCodes, List<String> indicatorCodes, int startYear, int endYear);
 
-    List<Measurement> findByCountryInAndIndicatorIn(List<String> countryCodes, List<String> indicatorCodes);
+    List<Measurement> findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqualOrderByYear(
+            List<String> countryCodes, List<String> indicatorCodes, int startYear, int endYear);
 }

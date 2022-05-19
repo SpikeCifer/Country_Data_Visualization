@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.models;
+package uoi.DataVisualizer.models.entities;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -17,6 +17,6 @@ public class TimePeriod {
     private final int year;
     private final String quinquennial; // The word for 5 years (believe it or not)
     private final String decade;
-    private final String vicennial; // The word for 20 years (again believe it or not
+    private final String vicennial; // The word for 20 years (again believe it or not)
 
 }

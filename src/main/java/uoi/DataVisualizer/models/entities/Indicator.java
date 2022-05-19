@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.models;
+package uoi.DataVisualizer.models.entities;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-public class Country {
+public class Indicator {
     @Id
     private final String code;
     private final String name;

@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.models;
+package uoi.DataVisualizer.models.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -51,5 +51,13 @@ public class Measurement implements Serializable {
 
     public double getMeasurement() {
         return measurement;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
     }
 }
