@@ -3,6 +3,8 @@ import string
 import mysql.connector
 from mysql.connector import errorcode
 
+LOAD_FOLDER = '/var/lib/mysql-files/{0}' # Change to appropriate folder when loading
+
 TABLES = {}
 
 DB_NAME = 'Chartify'

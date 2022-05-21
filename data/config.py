@@ -79,7 +79,11 @@ def doc_measurements(df:pd.DataFrame):
 filenames = next(walk(RES_PATH), (None, None, []))[2]
 
 doc_years(init_dataframe(filenames[0]))
+print("Created Years file")
 doc_indicators(init_dataframe(filenames[0]))
+print("Created Indicators File")
 
 for filename in filenames:
     doc_measurements(init_dataframe(filename))
+
+print("Finished Execution")
