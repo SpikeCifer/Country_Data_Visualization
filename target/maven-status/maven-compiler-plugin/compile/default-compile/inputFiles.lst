@@ -7,6 +7,7 @@
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/controllers/RequestController.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/entities/Indicator.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/resositories/CountryRepository.java
+/home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/requests/IndicatorsBarChartRequest.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/entities/Country.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/controllers/ScatterChartRequestController.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/entities/MeasurementId.java
@@ -15,5 +16,6 @@
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/DataVisualizerApplication.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/resositories/TimePeriodRepository.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/entities/Measurement.java
+/home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/requests/CountriesBarChartRequest.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/models/requests/TimelineRequest.java
 /home/stelios/dev/FullStackProjects/Country_Data_Visualization/src/main/java/uoi/DataVisualizer/controllers/TimelineController.java

@@ -12,4 +12,7 @@ public interface MeasurementRepository extends CrudRepository<Measurement, Measu
 
     List<Measurement> findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqualOrderByYear(
             List<String> countryCodes, List<String> indicatorCodes, int startYear, int endYear);
+
+    List<Measurement> findByCountryAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqualOrderByYear(
+            String countryCode, List<String> indicatorCodes, int startYear, int endYear);
 }

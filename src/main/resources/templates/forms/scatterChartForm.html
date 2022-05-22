@@ -9,8 +9,6 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- JQuery Code -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Create a Scatter Chart</title>
     <link rel="icon" type="image/x-icon" href="logo.svg">
 </head>
@@ -18,67 +16,69 @@
     <div th:if="${error != null}" class="mt-4 text-center text-danger">
         <span>[[${error}]]</span>
     </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scatterModal">
-        Create a Scatter Chart
-    </button>
-
-    <form action="#" th:action="@{/scatterChart}" th:object="${scatterChartRequest}" method="POST">
-        <div class="modal fade" id="scatterModal" tabindex="-1" role="dialog" aria-labelledby="modalScatterChartForm" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="scatterHeader">Fill up the Scatter Chart Form</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-2">
-                            <select class="form-select" name="metric1" id="metricA">
-                                <option selected>Select Metric 1...</option>
-                                <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
-                            </select>
-                            <select class="form-select" name="metric2" id="metricB">
-                                <option selected>Select Metric 2...</option>
-                                <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
-                            </select>
-                        </div>
-                        <div class="row mb-3" id="scatterYears">
-                            <div class="col-md-4">
-                                <select class="form-select" name="startYear">
-                                    <option selected>Start At...</option>
-                                    <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select" name="endYear">
-                                    <option selected>End At...</option>
-                                    <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select" name="timeLapse">
-                                    <option selected>Per...</option>
-                                    <option value="year">Year</option>
-                                    <option value="quinquennial">5 Years</option>
-                                    <option value="decade">10 Years</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select" name="countries" id="scatterBaseCountry">
-                                    <option selected>Select base Country...</option>
-                                    <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">COUNTRY</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    <h2 class="modal-title text-center" id="scatterHeader">Fill up the Scatter Chart Form</h2>
+    <div class="container">
+        <form action="#" th:action="@{/scatterChart}" th:object="${scatterChartRequest}" method="POST">
+            <div class="row mb-3">
+                <h5>Provide Info</h5>
+                <div class="col-md-4">
+                    <label for="metricA">Compare:</label>
+                    <select class="form-select" name="metric1" id="metricA" th:field="*{metric1}">
+                        <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('indicators')}" th:errors="*{indicators}" class="text-center text-danger">
+                        COUNTRIES ERROR</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="metricB">To:</label>
+                    <select class="form-select" name="metric2" id="metricB" th:field="*{metric2}">
+                        <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="scatterBaseCountry">For Country:</label>
+                    <select class="form-select" id="scatterBaseCountry" name="countries" th:field="*{country}">
+                        <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">COUNTRY</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('country')}" th:errors="*{endYear}" class="text-center text-danger">
+                        COUNTRY ERROR
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-    <!-- Bootstrap Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            <div class="row mb-3" id="scatterYears">
+                <h5>Define the Time Period</h5>
+                <div class="col-md-4">
+                    <label for="startYear">From the year:</label>
+                    <select id="startYear" class="form-select" name="startYear" th:field="*{startYear}">
+                        <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('startYear')}" th:errors="*{startYear}" class="text-center text-danger">
+                        START YEAR ERROR
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="endYear">Up to:</label>
+                    <select id="endYear" class="form-select" name="endYear" th:field="*{endYear}">
+                        <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('endYear')}" th:errors="*{endYear}" class="text-center text-danger">
+                        END YEAR ERROR
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="timeLapse">(To be Added)</label>
+                    <select id="timeLapse" class="form-select" name="timeLapse" th:field="*{timeLapse}" disabled>
+                        <option th:value="null" selected>Per...</option>
+                        <option th:value="year">Year</option>
+                        <option th:value="quinquennial">5 Years</option>
+                        <option th:value="decade">10 Years</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
