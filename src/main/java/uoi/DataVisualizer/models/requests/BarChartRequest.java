@@ -9,8 +9,11 @@ import java.util.List;
 
 @Data
 public class BarChartRequest {
-    @NotNull(message="You have to clarify what you will compare")
-    private String comparisonOption;
+    @NotNull(message="You have to specify what you will compare")
+    protected String comparisonOption;
+
+    private String countryA;
+    private String countryB;
 
     @Size(min=1, message = "You must select at least one country")
     private List<String> countries;

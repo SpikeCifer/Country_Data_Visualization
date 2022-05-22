@@ -2,6 +2,7 @@ uoi/DataVisualizer/models/entities/Indicator.class
 uoi/DataVisualizer/controllers/ScatterChartRequestController.class
 uoi/DataVisualizer/models/requests/BarChartRequest.class
 uoi/DataVisualizer/resositories/CountryRepository.class
+uoi/DataVisualizer/models/requests/CountriesBarChartRequest.class
 uoi/DataVisualizer/models/requests/ScatterChartRequest.class
 uoi/DataVisualizer/resositories/MeasurementRepository.class
 uoi/DataVisualizer/models/entities/MeasurementId.class
@@ -10,6 +11,7 @@ uoi/DataVisualizer/DataVisualizerApplication.class
 uoi/DataVisualizer/controllers/HomeController.class
 uoi/DataVisualizer/models/entities/MeasurementNotFoundException.class
 uoi/DataVisualizer/models/entities/Country.class
+uoi/DataVisualizer/models/requests/IndicatorsBarChartRequest.class
 uoi/DataVisualizer/controllers/TimelineController.class
 uoi/DataVisualizer/resositories/TimePeriodRepository.class
 uoi/DataVisualizer/models/entities/TimePeriod.class

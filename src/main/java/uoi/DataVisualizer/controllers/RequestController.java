@@ -38,11 +38,9 @@ public class RequestController {
     }
 
     protected String formatHeader(Measurement m, String base) {
-        String header = "Base was ";
-
         if (base.equals("countries"))
-            return header + m.getIndicator();
+            return m.getIndicator();
 
-        return header + m.getCountry();
+        return m.getCountry();
     }
 }

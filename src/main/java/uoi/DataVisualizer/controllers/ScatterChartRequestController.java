@@ -33,8 +33,8 @@ public class ScatterChartRequestController extends RequestController {
             return "forms/scatterChartForm";
         }
 
-        List<Measurement> measurements = measurementRepo.findByCountryInAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqualOrderByYear(
-                request.getCountries(), request.getIndicators(), request.getStartYear(), request.getEndYear()
+        List<Measurement> measurements = measurementRepo.findByCountryAndIndicatorInAndYearGreaterThanEqualAndYearLessThanEqualOrderByYear(
+                request.getCountry(), request.getIndicators(), request.getStartYear(), request.getEndYear()
         );
 
         exchangeCodesWithNames(measurements);
