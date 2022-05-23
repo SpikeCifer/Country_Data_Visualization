@@ -1,7 +1,7 @@
 # Country Data Visualizer
 
 A Spring Boot Web App used for visualizing data collected from [The World Bank](https://data.worldbank.org/country).
-Application was developed using **Java 11**
+Application was developed in **Java 11** using the **IntelliJ** IDE
 
 ## Technologies Used
 - Bootstrap
@@ -10,6 +10,16 @@ Application was developed using **Java 11**
 - MySQL
 
 ## Installation Process
-In the case that the import scripts indicate that you can not import data to your
-MySQL server, check which directory has permission to do so and move the data files
-in that directory.
+Check the Readme file in data directory for loading the data.
+## Notice
+You might have to change the following in the **application.properties** file
+```
+  spring.datasource.username=root
+  !spring.datasource.password=''
+```
+With your way of authentication
+
+## Use
+- Build the project from the maven file in you preferred IDE
+- Start the App
+- Connect to localhost:8080

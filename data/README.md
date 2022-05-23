@@ -1,6 +1,6 @@
 # Data & Import Scripts
 
-##Step 1: config.py
+## Step 1: Configure_data.py
 This file prepares the data files for loading in the database by extracting their data and writing it in csv form.
 
 ## Step 2: Copy Files
