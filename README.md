@@ -23,3 +23,6 @@ With your way of authentication
 - Build the project from the maven file in you preferred IDE
 - Start the App
 - Connect to localhost:8080
+
+## Docs
+Check the docs folder for the report on the project.
