@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.resositories;
+package uoi.DataVisualizer.repositories;
 
 import uoi.DataVisualizer.models.entities.Country;
 import org.springframework.data.repository.CrudRepository;

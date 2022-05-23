@@ -59,7 +59,6 @@
                                 <div class="row mb-3" id="timeFilter">
                                     <div class="col-md-4">
                                         <select id="startYear" class="form-select" th:field="*{startYear}">
-                                            <option th:value="-1" selected>Start At...</option>
                                             <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
                                         </select>
                                         <div th:if="${#fields.hasErrors('startYear')}" th:errors="*{startYear}" class="text-center text-danger">

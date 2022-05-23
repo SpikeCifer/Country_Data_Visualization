@@ -1,4 +1,4 @@
-package uoi.DataVisualizer.resositories;
+package uoi.DataVisualizer.repositories;
 
 import uoi.DataVisualizer.models.entities.MeasurementId;
 import uoi.DataVisualizer.models.entities.Measurement;

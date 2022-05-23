@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import uoi.DataVisualizer.models.entities.Measurement;
-import uoi.DataVisualizer.resositories.CountryRepository;
-import uoi.DataVisualizer.resositories.IndicatorRepository;
-import uoi.DataVisualizer.resositories.MeasurementRepository;
-import uoi.DataVisualizer.resositories.TimePeriodRepository;
+import uoi.DataVisualizer.repositories.CountryRepository;
+import uoi.DataVisualizer.repositories.IndicatorRepository;
+import uoi.DataVisualizer.repositories.MeasurementRepository;
+import uoi.DataVisualizer.repositories.TimePeriodRepository;
 
 import java.util.List;
 

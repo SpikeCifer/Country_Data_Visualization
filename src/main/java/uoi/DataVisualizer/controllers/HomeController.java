@@ -7,9 +7,9 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-import uoi.DataVisualizer.resositories.CountryRepository;
-import uoi.DataVisualizer.resositories.IndicatorRepository;
-import uoi.DataVisualizer.resositories.TimePeriodRepository;
+import uoi.DataVisualizer.repositories.CountryRepository;
+import uoi.DataVisualizer.repositories.IndicatorRepository;
+import uoi.DataVisualizer.repositories.TimePeriodRepository;
 
 @Controller
 @Slf4j
