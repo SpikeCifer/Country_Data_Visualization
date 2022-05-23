@@ -10,8 +10,7 @@ Application was developed in **Java 11** using the **IntelliJ** IDE
 - MySQL
 
 ## Installation Process
-Check the Readme file in data directory.
-
+Check the Readme file in data directory for loading the data.
 ## Notice
 You might have to change the following in the **application.properties** file
 ```
@@ -24,4 +23,3 @@ With your way of authentication
 - Build the project from the maven file in you preferred IDE
 - Start the App
 - Connect to localhost:8080
-- 
