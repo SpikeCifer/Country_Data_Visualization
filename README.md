@@ -3,6 +3,11 @@
 A Spring Boot Web App used for visualizing data collected from [The World Bank](https://data.worldbank.org/country).
 Application was developed in **Java 11** using the **IntelliJ** IDE
 
+## Team
+Πέτρος Καραμπάς, 2987
+Στυλιανός Ζαππίδης, 2971 (I am SpikeCifer)
+Νικόλαος Αμβαζάς, 2932
+
 ## Technologies Used
 - Bootstrap
 - Thymeleaf
