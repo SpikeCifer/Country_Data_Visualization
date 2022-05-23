@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JQuery Code -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Create a Bar Chart</title>
+    <link rel="icon" type="image/x-icon" href="logo.svg">
+</head>
+<body>
+    <div th:if="${error != null}" class="mt-4 text-center text-danger">
+        <span>There was an error with your submitted form</span>
+    </div>
+
+    <h3 style="text-align: center;">Fill up the Bar Chart Form</h3>
+    <form action="#" th:action="@{/barChart}" th:object="${barChartRequest}" id="formId" method="POST">
+        <div class="form-body container">
+            <div th:if="${#fields.hasErrors('comparisonOption')}" th:errors="*{comparisonOption}" class="text-center text-danger">
+                INDICATORS ERROR
+            </div>
+            <input type="radio" id="barCountries" name="comparisonOption" th:field="*{comparisonOption}" th:value="countries" onclick="toggle(this.id)">
+            <label for="barCountriesComparison">Compare Countries</label>
+            <div class="container mb-4" id="barCountriesComparison">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="barBaseIndicator">For Metric:</label>
+                        <select class="form-select" id="barBaseIndicator" th:field="*{indicators}" name="indicators">
+                            <option th:each="indicator : ${indicators}"
+                                    th:value="${indicator.code}"
+                                    th:text="${indicator.name}">
+                                INDICATOR
+                            </option>
+                        </select>
+                        <div th:if="${#fields.hasErrors('indicators')}" th:errors="*{indicators}" class="text-center text-danger">
+                            INDICATORS ERROR
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="barCountryA">Compare:</label>
+                        <select class="form-select" id="barCountryA" name="countries" th:field="*{countries}">
+                            <option th:each="country : ${countries}"
+                                    th:value="${country.code}"
+                                    th:text="${country.name}">
+                                COUNTRY
+                            </option>
+                        </select>
+                        <div th:if="${#fields.hasErrors('countries')}"
+                             th:errors="*{countries}"
+                             class="text-center text-danger">
+                            COUNTRY ERROR
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="barCountryB">To:</label>
+                        <select class="form-select" id="barCountryB" name="countries">
+                            <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">COUNTRY</option>
+                        </select>
+                        <div th:if="${#fields.hasErrors('indicators')}" th:errors="*{indicators}" class="text-center text-danger">
+                            COUNTRY ERROR
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="radio" id="barIndicators" name="comparisonOption" th:field="*{comparisonOption}" value="indicators" onclick="toggle(this.id)">
+            <label for="barIndicatorsComparison">Compare  Indicators</label>
+            <div class="container mb-4" id="barIndicatorsComparison">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="baseBarCountry">For Country:</label>
+                        <select class="form-select" id="baseBarCountry" name="countries">
+                            <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">COUNTRY</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="indicatorA">Compare:</label>
+                        <select class="form-select" id="indicatorA" name="indicators">
+                            <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="IndicatorB">To:</label>
+                        <select class="form-select" id="indicatorB" name="indicators">
+                            <option th:each="indicator : ${indicators}" th:value="${indicator.code}" th:text="${indicator.name}">INDICATOR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <h5>Provide the Time Period</h5>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="startYear">Select a start Year</label>
+                    <select id="startYear" class="form-select" th:field="*{startYear}">
+                        <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('startYear')}" th:errors="*{startYear}" class="text-center text-danger">
+                        START ERROR
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="endYear">Select an end Year</label>
+                    <select id="endYear" class="form-select" th:field="*{endYear}">
+                        <option th:each="date : ${years}" th:value="${date.year}" th:text="${date.year}">YEAR</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('endYear')}" th:errors="*{endYear}" class="text-center text-danger">
+                        END YEAR ERROR
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="time-filter">(To Be Added)</label>
+                    <select id="time-filter" class="form-select" name="timeLapse" disabled>
+                        <option selected>Per...</option>
+                        <option value="year">Year</option>
+                        <option value="quinquennial">5 Years</option>
+                        <option value="decade">10 Years</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function toggle(id) {
+            let action = "";
+            if (id == "barCountries") {
+                $("#barCountriesComparison :input").attr("disabled", false);
+                $("#barIndicatorsComparison :input").attr("disabled", true);
+                action = "/barChart/countries";
+            }
+
+            else if (id == "barIndicators") {
+                $("#barIndicatorsComparison :input").attr("disabled", false);
+                $("#barCountriesComparison :input").attr("disabled", true);
+                action = "/barChart/indicators";
+            }
+
+            document.getElementById("formId").action = action;
+            console.log(document.getElementById("formId"));
+        }
+    </script>
+</body>
+</html>

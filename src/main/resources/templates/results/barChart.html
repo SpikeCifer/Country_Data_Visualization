@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Your Bar Chart</title>
+</head>
+<body>
+<div class="col-8 offset-2 my-5" >
+    <div class="card">
+        <div class="card-body">
+            <h5 id="chartTitle">Your Chart</h5>
+            <hr>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:inline="javascript">
+            /* This is not a scalable approach, but we gain performance
+             * and the colors are quite distinct from one another
+             */
+            const colors = [
+                'rgb(240, 163, 255)', 'rgb(0, 177, 220)',
+                'rgb(153, 63, 0)', 'rgb(76, 0, 92)',
+                'rgb(25, 25, 25)', 'rgb(0, 92, 49)',
+                'rgb(43, 206, 72)', 'rgb(255, 204, 153)',
+                'rgb(128, 128, 128)', 'rgb(148, 255, 181)',
+                'rgb(143, 124, 0)', 'rgb(157, 204, 0)',
+                'rgb(194,0,136)', 'rgb(0,51,128)',
+                'rgb(255,164,5)', 'rgb(255,168,187)',
+                'rgb(66,102,0)', 'rgb(255,0,16)',
+                'rgb(94,241,242)', 'rgb(0, 153, 143)',
+                'rgb(224, 255, 102)', 'rgb(116, 10, 255)',
+                'rgb(153,0,0)', 'rgb(255,255,128)',
+                'rgb(255, 255, 0)', 'rgb(255, 80, 5)'
+            ]
+
+            var colorDict = {};
+            var datasetsDict = {};
+            var datasets = [];
+            var years = [];
+
+            chartTitle.innerText = [[${header}]];
+
+            for (var measurement of [[${measurements}]]) {
+                // Add years to label for x-axis
+                if (!years.includes(measurement.year))
+                    years.push(measurement.year);
+
+                if ([[${comparisonElements}]] == 'countries') {
+                    if (!colorDict.hasOwnProperty(measurement.country))
+                        colorDict[measurement.country] = colors[Object.keys(colorDict).length];
+
+                    let datasetName = measurement.country
+                    if (!datasetsDict.hasOwnProperty(datasetName)) {
+                        datasetsDict[datasetName] = {
+                            label: datasetName,
+                            data: [],
+                            fill: false,
+                            borderColor: colorDict[datasetName],
+                            borderWidth: 2
+                        };
+                    }
+                    datasetsDict[measurement.country].data.push(measurement.measurement);
+                }
+
+                else if ([[${comparisonElements}]] == 'indicators') {
+                    if (!colorDict.hasOwnProperty(measurement.indicator))
+                        colorDict[measurement.indicator] = colors[Object.keys(colorDict).length];
+
+                    let datasetName = measurement.indicator;
+                    if (!datasetsDict.hasOwnProperty(datasetName)) {
+                        datasetsDict[datasetName] = {
+                            label: datasetName,
+                            data: [],
+                            fill: false,
+                            borderColor: colorDict[datasetName],
+                            borderWidth: 2
+                        };
+                     }
+                    datasetsDict[datasetName].data.push(measurement.measurement);
+                }
+            }
+
+            const chartData = {
+                labels: years,
+                datasets: Object.values(datasetsDict)
+            }
+
+            const config = {
+                type: 'bar',
+                data: chartData
+            }
+
+            const chart = new Chart(
+                document.getElementById('myChart').getContext('2d'),
+                config
+            );
+    </script>
+</body>
+</html>
