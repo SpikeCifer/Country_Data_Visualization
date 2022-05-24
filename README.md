@@ -9,6 +9,7 @@ Application was developed in **Java 11** using the **IntelliJ** IDE
 - Νικόλαος Αμβαζάς, 2932
 
 ## Technologies Used
+- Charts.js
 - Bootstrap
 - Thymeleaf
 - Spring
